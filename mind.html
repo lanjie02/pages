@@ -6,32 +6,41 @@
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsmind/style/jsmind.css" />
 </head>
 <body>
-    <div id="jsmind_container" style="width: 800px; height: 600px;"></div>
+    <div id="jsmind_container" style="width: 100%; height: 100vh;"></div>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsmind/js/jsmind.js"></script>
     <script type="text/javascript">
-        var mind = {
-            "meta": {
-                "name": "example",
-                "author": "hizzgdev@163.com",
-                "version": "0.2"
-            },
-            "format": "node_array",
-            "data": [
-                {"id": "root", "isroot": true, "topic": "jsMind"},
-                {"id": "sub1", "parentid": "root", "topic": "sub1"},
-                {"id": "sub2", "parentid": "root", "topic": "sub2"},
-                {"id": "sub3", "parentid": "root", "topic": "sub3"}
-            ]
-        };
+        // 定义一个函数从接口获取数据
+        async function fetchMindMapData() {
+            const response = await fetch('https://lanjie02.github.io/pages/api/mindmap?sub1=Custom1&sub2=Custom2&sub3=Custom3');
+            const data = await response.json();
+            return data;
+        }
 
-        var options = {
-            container: 'jsmind_container',
-            editable: true,
-            theme: 'primary'
-        };
+        // 初始化脑图
+        async function initMindMap() {
+            const mindData = await fetchMindMapData();
+            const mind = {
+                "meta": {
+                    "name": "example",
+                    "author": "hizzgdev@163.com",
+                    "version": "0.2"
+                },
+                "format": "node_array",
+                "data": mindData
+            };
 
-        var jm = new jsMind(options);
-        jm.show(mind);
+            const options = {
+                container: 'jsmind_container',
+                editable: true,
+                theme: 'primary'
+            };
+
+            const jm = new jsMind(options);
+            jm.show(mind);
+        }
+
+        // 调用初始化函数
+        initMindMap();
     </script>
 </body>
 </html>
