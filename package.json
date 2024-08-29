@@ -7,6 +7,10 @@
     "build": "mkdir -p public && cp mind.html public/"
   },
   "dependencies": {
-    "express": "^4.17.1"
-  }
+    "express": "^4.19.2"
+  },
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
